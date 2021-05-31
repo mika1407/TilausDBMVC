@@ -26,6 +26,7 @@ namespace TilausDBMVC.Models
         public string Postinumero { get; set; }
         public string Etunimi { get; set; }
         public string Sukunimi { get; set; }
+        public Nullable<int> PostiID { get; set; }
     
         public virtual Postitoimipaikat Postitoimipaikat { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

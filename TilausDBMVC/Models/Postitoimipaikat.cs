@@ -18,15 +18,13 @@ namespace TilausDBMVC.Models
         public Postitoimipaikat()
         {
             this.Asiakkaat = new HashSet<Asiakkaat>();
-            this.Tilaukset = new HashSet<Tilaukset>();
         }
     
+        public int PostiID { get; set; }
         public string Postinumero { get; set; }
         public string Postitoimipaikka { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Asiakkaat> Asiakkaat { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Tilaukset> Tilaukset { get; set; }
     }
 }
