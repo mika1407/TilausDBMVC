@@ -39,7 +39,16 @@ namespace TilausDBMVC.Controllers
         // GET: Asiakkaat/Create
         public ActionResult Create()
         {
-            ViewBag.Postinumero = new SelectList(db.Postitoimipaikat, "Postinumero", "Postitoimipaikka");
+            var posti = db.Postitoimipaikat;
+            IEnumerable<SelectListItem> selectPostiLists = from p in posti
+                                                           select new SelectListItem
+                                                           {
+                                                               Value = p.PostiID.ToString(),
+                                                               Text = p.Postinumero + " " + p.Postitoimipaikka.ToString()
+                                                           };
+
+            //ViewBag.Postinumero = new SelectList(db.Postitoimipaikat, "Postinumero", "Postitoimipaikka");
+            ViewBag.PostiID = new SelectList(selectPostiLists, "Value", "Text");
             return View();
         }
 
@@ -48,7 +57,7 @@ namespace TilausDBMVC.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "AsiakasID,Nimi,Osoite,Postinumero,Etunimi,Sukunimi")] Asiakkaat asiakkaat)
+        public ActionResult Create([Bind(Include = "AsiakasID,Nimi,Osoite,Postinumero,Postitoimipaikka,PostiID,Etunimi,Sukunimi")] Asiakkaat asiakkaat)
         {
             if (ModelState.IsValid)
             {
@@ -57,7 +66,16 @@ namespace TilausDBMVC.Controllers
                 return RedirectToAction("Index");
             }
 
-            ViewBag.Postinumero = new SelectList(db.Postitoimipaikat, "Postinumero", "Postitoimipaikka", asiakkaat.Postinumero);
+            var posti = db.Postitoimipaikat;
+            IEnumerable<SelectListItem> selectPostiLists = from p in posti
+                                                           select new SelectListItem
+                                                           {
+                                                               Value = p.PostiID.ToString(),
+                                                               Text = p.Postinumero + " " + p.Postitoimipaikka.ToString()
+                                                           };
+
+            //ViewBag.PostiID = new SelectList(db.Postitoimipaikat, "Postinumero", "Postitoimipaikka", asiakkaat.Postinumero);
+            ViewBag.PostiID = new SelectList(selectPostiLists, "Value", "Text", asiakkaat.PostiID);
             return View(asiakkaat);
         }
 
@@ -73,7 +91,26 @@ namespace TilausDBMVC.Controllers
             {
                 return HttpNotFound();
             }
-            ViewBag.Postinumero = new SelectList(db.Postitoimipaikat, "Postinumero", "Postitoimipaikka", asiakkaat.Postinumero);
+
+            var asiakas = db.Asiakkaat;
+            IEnumerable<SelectListItem> selectLists = from s in asiakas
+                                                      select new SelectListItem
+                                                      {
+                                                          Value = s.AsiakasID.ToString(),
+                                                          Text = s.Etunimi + " " + s.Sukunimi.ToString()
+                                                      };
+            var posti = db.Postitoimipaikat;
+            IEnumerable<SelectListItem> selectPostiLists = from p in posti
+                                                           select new SelectListItem
+                                                           {
+                                                               Value = p.PostiID.ToString(),
+                                                               Text = p.Postinumero + " " + p.Postitoimipaikka.ToString()
+                                                           };
+
+
+            //ViewBag.PostiID = new SelectList(db.Postitoimipaikat,"PostiID", "Postinumero", "Postitoimipaikka", asiakkaat.PostiID);
+            ViewBag.PostiID = new SelectList(selectPostiLists, "Value", "Text", asiakkaat.PostiID);
+            ViewBag.AsiakasID = new SelectList(selectLists, "Value", "Text", asiakkaat.AsiakasID);
             return View(asiakkaat);
         }
 
@@ -82,15 +119,26 @@ namespace TilausDBMVC.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "AsiakasID,Nimi,Osoite,Postinumero,Etunimi,Sukunimi")] Asiakkaat asiakkaat)
+        public ActionResult Edit([Bind(Include = "AsiakasID,Nimi,Osoite,Postinumero,Postitoimipaikka,PostiID,Etunimi,Sukunimi")] Asiakkaat asiakkaat)
         {
             if (ModelState.IsValid)
             {
                 db.Entry(asiakkaat).State = EntityState.Modified;
                 db.SaveChanges();
+                ViewBag.PostiID = new SelectList(db.Postitoimipaikat, "Postinumero", "Postitoimipaikka", "PostiID", asiakkaat.PostiID);
                 return RedirectToAction("Index");
             }
-            ViewBag.Postinumero = new SelectList(db.Postitoimipaikat, "Postinumero", "Postitoimipaikka", asiakkaat.Postinumero);
+
+            var posti = db.Postitoimipaikat;
+            IEnumerable<SelectListItem> selectPostiLists = from p in posti
+                                                           select new SelectListItem
+                                                           {
+                                                               Value = p.PostiID.ToString(),
+                                                               Text = p.Postinumero + " " + p.Postitoimipaikka.ToString()
+                                                           };
+
+            //ViewBag.PostiID = new SelectList(db.Postitoimipaikat, "Postinumero", "Postitoimipaikka", "PostiID", asiakkaat.PostiID);
+            ViewBag.PostiID = new SelectList(selectPostiLists, "Value", "Text", asiakkaat.PostiID);
             return View(asiakkaat);
         }
 
