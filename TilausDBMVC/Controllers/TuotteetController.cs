@@ -17,7 +17,20 @@ namespace TilausDBMVC.Controllers
         // GET: Tuotteet
         public ActionResult Index()
         {
-            return View(db.Tuotteet.ToList());
+            if (Session["UserName"] == null)
+            {
+                return RedirectToAction("login", "home");
+            }
+            else
+            {
+                List<Tuotteet> model = db.Tuotteet.ToList();
+                db.Dispose();
+
+
+
+                return View(model);
+            }
+            //return View(db.Tuotteet.ToList());
         }
 
         // GET: Tuotteet/Details/5
