@@ -29,6 +29,15 @@
           <Property Name="Postinumero" Type="varchar" MaxLength="5" />
           <Property Name="Sahkoposti" Type="nvarchar" MaxLength="100" />
         </EntityType>
+        <EntityType Name="Logins">
+          <Key>
+            <PropertyRef Name="LoginId" />
+          </Key>
+          <Property Name="LoginId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UserName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="PassWord" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="LoginErrorMessage" Type="nvarchar" MaxLength="50" />
+        </EntityType>
         <EntityType Name="Postitoimipaikat">
           <Key>
             <PropertyRef Name="PostiID" />
@@ -118,6 +127,7 @@
         <EntityContainer Name="TilausDBModelStoreContainer">
           <EntitySet Name="Asiakkaat" EntityType="Self.Asiakkaat" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Henkilot" EntityType="Self.Henkilot" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Logins" EntityType="Self.Logins" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Postitoimipaikat" EntityType="Self.Postitoimipaikat" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Tilaukset" EntityType="Self.Tilaukset" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Tilausrivit" EntityType="Self.Tilausrivit" Schema="dbo" store:Type="Tables" />
@@ -166,6 +176,7 @@
             <End Role="Tuotteet" EntitySet="Tuotteet" />
             <End Role="Tilausrivit" EntitySet="Tilausrivit" />
           </AssociationSet>
+          <EntitySet Name="Logins" EntityType="TilausDBModel.Logins" />
         </EntityContainer>
         <EntityType Name="Asiakkaat">
           <Key>
@@ -285,6 +296,15 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="Logins">
+          <Key>
+            <PropertyRef Name="LoginId" />
+          </Key>
+          <Property Name="LoginId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="PassWord" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="LoginErrorMessage" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -356,6 +376,16 @@
                 <ScalarProperty Name="Ahinta" ColumnName="Ahinta" />
                 <ScalarProperty Name="Nimi" ColumnName="Nimi" />
                 <ScalarProperty Name="TuoteID" ColumnName="TuoteID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Logins">
+            <EntityTypeMapping TypeName="TilausDBModel.Logins">
+              <MappingFragment StoreEntitySet="Logins">
+                <ScalarProperty Name="LoginErrorMessage" ColumnName="LoginErrorMessage" />
+                <ScalarProperty Name="PassWord" ColumnName="PassWord" />
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
+                <ScalarProperty Name="LoginId" ColumnName="LoginId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

@@ -15,6 +15,7 @@
         <AssociationConnector Association="TilausDBModel.FK_Tilaukset_Asiakkaat" />
         <AssociationConnector Association="TilausDBModel.FK_Tilausrivit_Tilaukset" />
         <AssociationConnector Association="TilausDBModel.FK_Tilausrivit_Tuotteet" />
+        <EntityTypeShape EntityType="TilausDBModel.Logins" Width="1.5" PointX="7.375" PointY="4.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
