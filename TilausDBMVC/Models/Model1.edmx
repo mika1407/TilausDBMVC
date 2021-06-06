@@ -75,6 +75,7 @@
           <Property Name="Nimi" Type="varchar" MaxLength="50" />
           <Property Name="Ahinta" Type="decimal" Precision="7" Scale="2" />
           <Property Name="Kuva" Type="image" />
+          <Property Name="Image" Type="nchar" MaxLength="250" />
         </EntityType>
         <Association Name="FK_Asiakkaat_ToTable">
           <End Role="Postitoimipaikat" Type="Self.Postitoimipaikat" Multiplicity="0..1" />
@@ -247,6 +248,7 @@
           <Property Name="Ahinta" Type="Decimal" Precision="7" Scale="2" />
           <Property Name="Kuva" Type="Binary" MaxLength="Max" FixedLength="false" />
           <NavigationProperty Name="Tilausrivit" Relationship="TilausDBModel.FK_Tilausrivit_Tuotteet" FromRole="Tuotteet" ToRole="Tilausrivit" />
+          <Property Name="Image" Type="String" MaxLength="250" FixedLength="true" Unicode="true" />
         </EntityType>
         <Association Name="FK_Asiakkaat_ToTable">
           <End Type="TilausDBModel.Postitoimipaikat" Role="Postitoimipaikat" Multiplicity="0..1" />
@@ -372,6 +374,7 @@
           <EntitySetMapping Name="Tuotteet">
             <EntityTypeMapping TypeName="TilausDBModel.Tuotteet">
               <MappingFragment StoreEntitySet="Tuotteet">
+                <ScalarProperty Name="Image" ColumnName="Image" />
                 <ScalarProperty Name="Kuva" ColumnName="Kuva" />
                 <ScalarProperty Name="Ahinta" ColumnName="Ahinta" />
                 <ScalarProperty Name="Nimi" ColumnName="Nimi" />

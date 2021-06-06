@@ -15,24 +15,38 @@ namespace TilausDBMVC.Controllers
             if (Session["UserName"] == null)
             {
                 ViewBag.LoggedStatus = "Out";
+                return RedirectToAction("login", "home");
             }
             else ViewBag.LoggedStatus = "In";
-
             return View();
         }
 
         public ActionResult About()
         {
-            ViewBag.Message = "Sovelluksen kuvaussivu / Your application description page.";
+            if (Session["UserName"] == null)
+            {
+                return RedirectToAction("login", "home");
+            }
+            else
+            {
+                ViewBag.Message = "Sovelluksen kuvaussivu / Your application description page.";
 
-            return View();
+                return View();
+            }
         }
 
         public ActionResult Contact()
         {
-            ViewBag.Message = "Yhteystieto sivu / Your contact page.";
+            if (Session["UserName"] == null)
+            {
+                return RedirectToAction("login", "home");
+            }
+            else
+            {
+                ViewBag.Message = "Yhteystieto sivu / Your contact page.";
 
-            return View();
+                return View();
+            }
         }
 
         public ActionResult Map()

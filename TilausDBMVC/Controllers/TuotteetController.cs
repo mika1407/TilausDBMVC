@@ -25,12 +25,18 @@ namespace TilausDBMVC.Controllers
             {
                 List<Tuotteet> model = db.Tuotteet.ToList();
                 db.Dispose();
-
-
-
                 return View(model);
             }
             //return View(db.Tuotteet.ToList());
+        }
+
+        public ActionResult TuoteKuvat()
+        {
+            TilausDBEntities db = new TilausDBEntities();
+            List<Tuotteet> model = db.Tuotteet.ToList();
+            db.Dispose();
+
+            return View(model);
         }
 
         // GET: Tuotteet/Details/5
