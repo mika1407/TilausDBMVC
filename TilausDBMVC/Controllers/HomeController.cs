@@ -14,11 +14,14 @@ namespace TilausDBMVC.Controllers
             //lisätään
             if (Session["UserName"] == null)
             {
+                ViewBag.LoginError = 0; //Ei virhettä
                 ViewBag.LoggedStatus = "Out";
                 return RedirectToAction("login", "home");
             }
-            else ViewBag.LoggedStatus = "In";
-            return View();
+            else 
+                ViewBag.LoggedStatus = "In";
+                ViewBag.LoginError = 0; //Ei virhettä
+                return View();
         }
 
         public ActionResult About()
@@ -59,6 +62,7 @@ namespace TilausDBMVC.Controllers
         //Login
         public ActionResult Login()
         {
+            ViewBag.LoginError = 0; //Ei virhettä
             return View();
         }
         [HttpPost]
@@ -71,15 +75,19 @@ namespace TilausDBMVC.Controllers
             {
                 ViewBag.LoginMessage = "Successfull login";
                 ViewBag.LoggedStatus = "In";
+                ViewBag.LoginError = 0; //Ei virhettä
                 Session["UserName"] = LoggedUser.UserName;
+                Session["LoginID"] = LoggedUser.LoginId;  //lisäsin
                 return RedirectToAction("Index", "Home"); //Tässä määritellään mihin onnistunut kirjautuminen johtaa ----> Home/Index
             }
             else
             {
                 ViewBag.LoginMessage = "Login unsuccessfull";
                 ViewBag.LoggedStatus = "Out";
+                ViewBag.LoginError = 1; // modaali login-ruutu uudelleen
                 LoginModel.LoginErrorMessage = "Tuntematon käyttäjätunnus tai salasana";
                 return View ("Login", LoginModel);
+                //return View("Index", LoginModel);
             }
         }
         public ActionResult LogOut()
