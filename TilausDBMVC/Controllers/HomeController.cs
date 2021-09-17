@@ -54,9 +54,16 @@ namespace TilausDBMVC.Controllers
 
         public ActionResult Map()
         {
-            ViewBag.Message = "Kartta missä asun / Your map page.";
+            if (Session["UserName"] == null)
+            {
+                return RedirectToAction("login", "home");
+            }
+            else
+            {
+                ViewBag.Message = "Kartta missä asun / Your map page.";
 
-            return View();
+                return View();
+            }
         }
 
         //Login

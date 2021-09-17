@@ -1,11 +1,10 @@
-﻿@model TilausDBMVC.Models.Logins
+﻿@*@model TilausDBMVC.Models.Logins*@
 
 @{
     ViewBag.Title = "Login";
 }
-<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css"
-      integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ"
-      crossorigin="anonymous">
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
+<script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
 
 @*JQuery, joka suoritetaan aina, kun sivu latautuu*@
 @section scripts {
@@ -15,6 +14,124 @@
                 $('#LoginRuutu').modal('show');
             }
         });
+        $(document).ready(function () {
+            $('[data-toggle="tooltip"]').tooltip();
+        });
+
+        var ctx = document.getElementById('myChart').getContext('2d');
+        var myChart = new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+                datasets: [{
+                    label: '# of Votes',
+                    data: [12, 19, 3, 5, 2, 3],
+                    backgroundColor: [
+                        'rgba(255, 99, 132, 0.2)',
+                        'rgba(54, 162, 235, 0.2)',
+                        'rgba(255, 206, 86, 0.2)',
+                        'rgba(75, 192, 192, 0.2)',
+                        'rgba(153, 102, 255, 0.2)',
+                        'rgba(255, 159, 64, 0.2)'
+                    ],
+                    borderColor: [
+                        'rgba(255, 99, 132, 1)',
+                        'rgba(54, 162, 235, 1)',
+                        'rgba(255, 206, 86, 1)',
+                        'rgba(75, 192, 192, 1)',
+                        'rgba(153, 102, 255, 1)',
+                        'rgba(255, 159, 64, 1)'
+                    ],
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                scales: {
+                    yAxes: [{
+                        ticks: {
+                            beginAtZero: true
+                        }
+                    }]
+                }
+            }
+        });
+
+        var ctx2 = document.getElementById('myChart2').getContext('2d');
+        var myChart2 = new Chart(ctx2, {
+            type: 'line',
+            data: {
+                labels: ['Tammi', 'Maalis', 'Touko', 'Heinä', 'Syys', 'Marras'],
+                datasets: [{
+                    label: 'Myynti kuukausittain 2021',
+                    data: [12, 19, 3, 5, 21, 13],
+                    backgroundColor: [
+                        /*'rgba(255, 99, 132, 0.2)',*/
+                        'rgba(54, 162, 235, 0.2)',
+                        'rgba(255, 206, 86, 0.2)',
+                        'rgba(75, 192, 192, 0.2)',
+                        'rgba(153, 102, 255, 0.2)',
+                        'rgba(255, 159, 64, 0.2)'
+                    ],
+                    borderColor: [
+                        'rgba(54, 162, 235, 1)',
+                        'rgba(54, 162, 235, 1)',
+                        'rgba(54, 162, 235, 1)',
+                        'rgba(54, 162, 235, 1)',
+                        'rgba(54, 162, 235, 1)',
+                        'rgba(54, 162, 235, 1)'
+                    ],
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                scales: {
+                    yAxes: [{
+                        ticks: {
+                            beginAtZero: true
+                        }
+                    }]
+                }
+            }
+        });
+
+        var ctx3 = document.getElementById('myChart3').getContext('2d');
+        var myChart3 = new Chart(ctx3, {
+            type: 'pie',
+            data: {
+                labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+                datasets: [{
+                    label: '# of Votes',
+                    data: [12, 19, 3, 5, 2, 3],
+                    backgroundColor: [
+                        'rgba(255, 99, 132, 0.2)',
+                        'rgba(54, 162, 235, 0.2)',
+                        'rgba(255, 206, 86, 0.2)',
+                        'rgba(75, 192, 192, 0.2)',
+                        'rgba(153, 102, 255, 0.2)',
+                        'rgba(255, 159, 64, 0.2)'
+                    ],
+                    borderColor: [
+                        'rgba(255, 99, 132, 1)',
+                        'rgba(54, 162, 235, 1)',
+                        'rgba(255, 206, 86, 1)',
+                        'rgba(75, 192, 192, 1)',
+                        'rgba(153, 102, 255, 1)',
+                        'rgba(255, 159, 64, 1)'
+                    ],
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                scales: {
+                    yAxes: [{
+                        ticks: {
+                            beginAtZero: true
+                        }
+                    }]
+                }
+            }
+        });
+
     </script>
 }
 
@@ -25,51 +142,30 @@
 {
     @Html.AntiForgeryToken()
 
-    <div class="form-horizontal">
-        <h4>Logins</h4>
-        <hr />
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        @Html.HiddenFor(model => model.LoginId)
+<div class="form-horizontal">
+    <h4>Logins</h4>
+    <hr />
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.UserName, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.UserName, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.UserName, "", new { @class = "text-danger" })
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-lg-4">
+                <canvas id="myChart"></canvas>
             </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.PassWord, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.PassWord, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.PassWord, "", new { @class = "text-danger" })
+            <div class="col-lg-4">
+                <canvas id="myChart2"></canvas>
             </div>
-        </div>
-
-        @*<div class="form-group">
-                @Html.LabelFor(model => model.LoginErrorMessage, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.EditorFor(model => model.LoginErrorMessage, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.LoginErrorMessage, "", new { @class = "text-danger" })
-                </div>
-            </div>*@
-
-        <label class="field-validation-error">
-            @Html.DisplayFor(model => model.LoginErrorMessage, new { @class = "control-label col-md-2 text-danger" })
-        </label>
-
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Log" class="btn btn-success" />
+            <div class="col-lg-4">
+                <canvas id="myChart3"></canvas>
             </div>
         </div>
     </div>
+
+</div>
 }
 
-<div>
+@*<div>
     @Html.ActionLink("Back to List", "Index")
-</div>
+</div>*@
 
 @*@section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
@@ -83,54 +179,8 @@
     </button>
 </p>
 
-@*The Modal*@
-<div class="modal" id="LoginRuutu">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h1 class="modal-title">Kirjautuminen</h1>
-            </div>
-            <div class="modal-body">
-                @using (Html.BeginForm("Authorize", "Home", FormMethod.Post, new { id="loginForm" }))   //lisätty
-                {
-                    @Html.AntiForgeryToken()
 
-                    <div class="form-horizontal">
-                        <h4>Logins, TilausDB-järjestelmä</h4>
-                        <hr />
-                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-                        @Html.HiddenFor(model => model.LoginId)
 
-                        <div class="form-group">
-                            @Html.LabelFor(model => model.UserName, htmlAttributes: new { @class = "control-label col-md-2" })
-                            <div class="col-md-10">
-                                @Html.EditorFor(model => model.UserName, new { htmlAttributes = new { @class = "form-control" } })
-                                @Html.ValidationMessageFor(model => model.UserName, "", new { @class = "text-danger" })
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            @Html.LabelFor(model => model.PassWord, htmlAttributes: new { @class = "control-label col-md-2" })
-                            <div class="col-md-10">
-                                @Html.EditorFor(model => model.PassWord, new { htmlAttributes = new { @class = "form-control" } })
-                                @Html.ValidationMessageFor(model => model.PassWord, "", new { @class = "text-danger" })
-                            </div>
-                        </div>
-
-                        <label class="field-validation-error">
-                            @Html.DisplayFor(model => model.LoginErrorMessage, new { @class = "control-label col-md-2 text-danger" })
-                        </label>
-       
-                    </div>
-                }
-
-            </div>
-            <div class="modal-footer">
-                <div>
-                    <button type="submit" class="btn btn-info" form="loginForm"><i class="fas fa-check"></i></button>
-                    <a href="@Url.Action("Login", "Home")" class="btn btn-info"><i class="fas fa-times"></i></a>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
+@{ 
+    Html.RenderPartial("_LoginModal");
+}

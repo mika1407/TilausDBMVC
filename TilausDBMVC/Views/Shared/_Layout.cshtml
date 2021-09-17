@@ -8,8 +8,15 @@
     @Scripts.Render("~/bundles/modernizr")
 </head>
 <body>
+    @{ 
+        if (Session["UserName"] == null) {
+            Html.RenderPartial("_NavbarLoggedOut");
+        } else {
+            Html.RenderPartial("_NavbarLoggedIn");
+        }
+    }
 
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <!--<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
         <div class="container-fluid">
             <a class="navbar-brand" href="#">Navbar (@ViewBag.LoggedStatus)</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarColor02" aria-controls="navbarColor02" aria-expanded="false" aria-label="Toggle navigation">
@@ -52,14 +59,14 @@
                             <a class="dropdown-item" href="~/Home/Contact">Yhteystiedot</a>
                         </div>
                     </li>
-                </ul>
+                </ul>-->
                 @*<form class="d-flex">
                         <input class="form-control me-sm-2" type="text" placeholder="Search">
                         <button class="btn btn-secondary my-2 my-sm-0" type="submit">Search</button>
                     </form>*@
-            </div>
+            <!--</div>
         </div>
-    </nav>
+    </nav>-->
 
     @*<div class="navbar navbar-inverse navbar-fixed-top">
             <div class="container">
