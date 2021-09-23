@@ -1,0 +1,66 @@
+﻿@model TilausDBMVC.Models.TuotteetMyynti10Parasta_kaikkinaAikoina
+
+@{
+    ViewBag.Title = "ProductSalesAllTimes";
+}
+
+@section scripts {
+    <script type="text/javascript">
+
+        let labelTexts2 = [@Html.Raw(ViewBag.Nimi)];
+        console.log(labelTexts2);
+        let dataValues2 = [@ViewBag.TuotteidenMyynti];
+        console.log(dataValues2);
+        var ctx = document.getElementById('barcanvas2').getContext('2d');
+        var myChart = new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: labelTexts2,
+                datasets: [{
+                    label: '10 eniten myytyä tuotetta',
+                    data: dataValues2,
+                    backgroundColor: [
+                        'rgba(255, 99, 132, 0.2)',
+                        'rgba(54, 162, 235, 0.2)',
+                        'rgba(255, 206, 86, 0.2)',
+                        'rgba(75, 192, 192, 0.2)',
+                        'rgba(153, 102, 255, 0.2)',
+                        'rgba(255, 159, 64, 0.2)'
+                    ],
+                    borderColor: [
+                        'rgba(255, 99, 132, 1)',
+                        'rgba(54, 162, 235, 1)',
+                        'rgba(255, 206, 86, 1)',
+                        'rgba(75, 192, 192, 1)',
+                        'rgba(153, 102, 255, 1)',
+                        'rgba(255, 159, 64, 1)'
+                    ],
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                scales: {
+                    yAxes: [{
+                        ticks: {
+                            beginAtZero: true
+                        }
+                    }]
+                }
+            }
+        });
+    </script>
+}
+<br />
+<h2>Product Sales AllTimes: 10 parasta myytyä tuotetta rahallisesti kaikkina aikoina!</h2>
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-xl-10">
+            <canvas id="barcanvas2"></canvas>
+        </div>
+    </div>
+    <div style="text-align: center">
+        Tiedot on haettu paikallisesta testitietokannasta!
+    </div>
+</div>
+

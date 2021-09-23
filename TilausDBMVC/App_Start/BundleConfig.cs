@@ -24,8 +24,11 @@ namespace TilausDBMVC
             bundles.Add(new ScriptBundle("~/bundles/popper").Include(
                         "~/Scripts/umd/popper.js"));
 
+            bundles.Add(new ScriptBundle("~/bundles/chart").Include(
+                      "~/Scripts/chart.js"));
+
             bundles.Add(new ScriptBundle("~/bundles/bootstrap").Include(
-                      "~/Scripts/bootstrap.js"));
+                     "~/Scripts/bootstrap.js"));
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/bootstraplux.css",

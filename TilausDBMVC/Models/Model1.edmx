@@ -77,6 +77,36 @@
           <Property Name="Kuva" Type="image" />
           <Property Name="Image" Type="nchar" MaxLength="250" />
         </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'TilausDB.dbo.Paivat' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="Paivat">
+          <Key>
+            <PropertyRef Name="rowid" />
+          </Key>
+          <Property Name="rowid" Type="bigint" Nullable="false" />
+          <Property Name="Weekday" Type="nvarchar" MaxLength="30" />
+          <Property Name="TuotteidenMyynti" Type="money" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'TilausDB.dbo.Tuotteet Myynti kaikkinaAikoina' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="Tuotteet Myynti kaikkinaAikoina">
+          <Key>
+            <PropertyRef Name="rowid" />
+          </Key>
+          <Property Name="rowid" Type="bigint" Nullable="false" />
+          <Property Name="Nimi" Type="varchar" MaxLength="50" />
+          <Property Name="TuotteidenMyynti" Type="money" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'TilausDB.dbo.TuotteetMyynti10Parasta kaikkinaAikoina' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="TuotteetMyynti10Parasta kaikkinaAikoina">
+          <Key>
+            <PropertyRef Name="rowid" />
+          </Key>
+          <Property Name="rowid" Type="bigint" Nullable="false" />
+          <Property Name="Nimi" Type="varchar" MaxLength="50" />
+          <Property Name="TuotteidenMyynti" Type="money" />
+        </EntityType>
         <Association Name="FK_Asiakkaat_ToTable">
           <End Role="Postitoimipaikat" Type="Self.Postitoimipaikat" Multiplicity="0..1" />
           <End Role="Asiakkaat" Type="Self.Asiakkaat" Multiplicity="*" />
@@ -133,6 +163,27 @@
           <EntitySet Name="Tilaukset" EntityType="Self.Tilaukset" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Tilausrivit" EntityType="Self.Tilausrivit" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Tuotteet" EntityType="Self.Tuotteet" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Paivat" EntityType="Self.Paivat" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [Paivat].[rowid] AS [rowid], 
+    [Paivat].[Weekday] AS [Weekday], 
+    [Paivat].[TuotteidenMyynti] AS [TuotteidenMyynti]
+    FROM [dbo].[Paivat] AS [Paivat]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="Tuotteet Myynti kaikkinaAikoina" EntityType="Self.Tuotteet Myynti kaikkinaAikoina" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [Tuotteet Myynti kaikkinaAikoina].[rowid] AS [rowid], 
+    [Tuotteet Myynti kaikkinaAikoina].[Nimi] AS [Nimi], 
+    [Tuotteet Myynti kaikkinaAikoina].[TuotteidenMyynti] AS [TuotteidenMyynti]
+    FROM [dbo].[Tuotteet Myynti kaikkinaAikoina] AS [Tuotteet Myynti kaikkinaAikoina]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="TuotteetMyynti10Parasta kaikkinaAikoina" EntityType="Self.TuotteetMyynti10Parasta kaikkinaAikoina" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [TuotteetMyynti10Parasta kaikkinaAikoina].[rowid] AS [rowid], 
+    [TuotteetMyynti10Parasta kaikkinaAikoina].[Nimi] AS [Nimi], 
+    [TuotteetMyynti10Parasta kaikkinaAikoina].[TuotteidenMyynti] AS [TuotteidenMyynti]
+    FROM [dbo].[TuotteetMyynti10Parasta kaikkinaAikoina] AS [TuotteetMyynti10Parasta kaikkinaAikoina]</DefiningQuery>
+          </EntitySet>
           <AssociationSet Name="FK_Asiakkaat_ToTable" Association="Self.FK_Asiakkaat_ToTable">
             <End Role="Postitoimipaikat" EntitySet="Postitoimipaikat" />
             <End Role="Asiakkaat" EntitySet="Asiakkaat" />
@@ -178,6 +229,9 @@
             <End Role="Tilausrivit" EntitySet="Tilausrivit" />
           </AssociationSet>
           <EntitySet Name="Logins" EntityType="TilausDBModel.Logins" />
+          <EntitySet Name="Tuotteet_Myynti_kaikkinaAikoina" EntityType="TilausDBModel.Tuotteet_Myynti_kaikkinaAikoina" />
+          <EntitySet Name="TuotteetMyynti10Parasta_kaikkinaAikoina" EntityType="TilausDBModel.TuotteetMyynti10Parasta_kaikkinaAikoina" />
+          <EntitySet Name="Paivat" EntityType="TilausDBModel.Paivat" />
         </EntityContainer>
         <EntityType Name="Asiakkaat">
           <Key>
@@ -307,6 +361,30 @@
           <Property Name="PassWord" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="LoginErrorMessage" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
         </EntityType>
+        <EntityType Name="Tuotteet_Myynti_kaikkinaAikoina">
+          <Key>
+            <PropertyRef Name="rowid" />
+          </Key>
+          <Property Name="rowid" Type="Int64" Nullable="false" />
+          <Property Name="Nimi" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="TuotteidenMyynti" Type="Decimal" Precision="19" Scale="4" />
+        </EntityType>
+        <EntityType Name="TuotteetMyynti10Parasta_kaikkinaAikoina">
+          <Key>
+            <PropertyRef Name="rowid" />
+          </Key>
+          <Property Name="rowid" Type="Int64" Nullable="false" />
+          <Property Name="Nimi" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="TuotteidenMyynti" Type="Decimal" Precision="19" Scale="4" />
+        </EntityType>
+        <EntityType Name="Paivat">
+          <Key>
+            <PropertyRef Name="rowid" />
+          </Key>
+          <Property Name="rowid" Type="Int64" Nullable="false" />
+          <Property Name="Weekday" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+          <Property Name="TuotteidenMyynti" Type="Decimal" Precision="19" Scale="4" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -389,6 +467,33 @@
                 <ScalarProperty Name="PassWord" ColumnName="PassWord" />
                 <ScalarProperty Name="UserName" ColumnName="UserName" />
                 <ScalarProperty Name="LoginId" ColumnName="LoginId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Tuotteet_Myynti_kaikkinaAikoina">
+            <EntityTypeMapping TypeName="TilausDBModel.Tuotteet_Myynti_kaikkinaAikoina">
+              <MappingFragment StoreEntitySet="Tuotteet Myynti kaikkinaAikoina">
+                <ScalarProperty Name="TuotteidenMyynti" ColumnName="TuotteidenMyynti" />
+                <ScalarProperty Name="Nimi" ColumnName="Nimi" />
+                <ScalarProperty Name="rowid" ColumnName="rowid" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TuotteetMyynti10Parasta_kaikkinaAikoina">
+            <EntityTypeMapping TypeName="TilausDBModel.TuotteetMyynti10Parasta_kaikkinaAikoina">
+              <MappingFragment StoreEntitySet="TuotteetMyynti10Parasta kaikkinaAikoina">
+                <ScalarProperty Name="TuotteidenMyynti" ColumnName="TuotteidenMyynti" />
+                <ScalarProperty Name="Nimi" ColumnName="Nimi" />
+                <ScalarProperty Name="rowid" ColumnName="rowid" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Paivat">
+            <EntityTypeMapping TypeName="TilausDBModel.Paivat">
+              <MappingFragment StoreEntitySet="Paivat">
+                <ScalarProperty Name="TuotteidenMyynti" ColumnName="TuotteidenMyynti" />
+                <ScalarProperty Name="Weekday" ColumnName="Weekday" />
+                <ScalarProperty Name="rowid" ColumnName="rowid" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

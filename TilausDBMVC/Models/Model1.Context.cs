@@ -32,5 +32,8 @@ namespace TilausDBMVC.Models
         public virtual DbSet<Tilausrivit> Tilausrivit { get; set; }
         public virtual DbSet<Tuotteet> Tuotteet { get; set; }
         public virtual DbSet<Logins> Logins { get; set; }
+        public virtual DbSet<Tuotteet_Myynti_kaikkinaAikoina> Tuotteet_Myynti_kaikkinaAikoina { get; set; }
+        public virtual DbSet<TuotteetMyynti10Parasta_kaikkinaAikoina> TuotteetMyynti10Parasta_kaikkinaAikoina { get; set; }
+        public virtual DbSet<Paivat> Paivat { get; set; }
     }
 }

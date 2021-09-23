@@ -7,22 +7,19 @@
 
         <div class="collapse navbar-collapse" id="navbarColor02">
             <ul class="navbar-nav me-auto">
-                <li class="nav-item">
-                    <a class="nav-link active" href="~/Home">
-                        Etusivu
-                        <span class="visually-hidden">(current)</span>
-                    </a>
-                </li>
+                <li class="nav-item"><a class="nav-link active" href="~/Home">Etusivu<span class="visually-hidden">(current)</span></a></li>
+                <li class="nav-item"><a class="nav-link" href="~/Home/About">Tietoa</a></li>
+                <li class="nav-item"><a class="nav-link" href="~/Home/Map">Kartta</a></li>
+                <li class="nav-item"><a class="nav-link" href="~/Home/Contact">Yhteystiedot</a></li>
 
-                <li class="nav-item">
-                    <a class="nav-link" href="~/Home/About">Tietoa</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="~/Home/Map">Kartta</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="~/Home/Contact">Yhteystiedot</a>
-                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Tilastoja</a>
+                    <div class="dropdown-menu" style="">
+                        <a class="dropdown-item" href="~/Tilastoja/ProductSalesAllTimes">Tuotteiden myynti kaikkina aikoina</a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" href="~/Tilastoja/ViikonPaivat">Tilaukset viikonpäivinä</a>
+                    </div>
+
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Pudotusvalikko</a>
                     <div class="dropdown-menu">
